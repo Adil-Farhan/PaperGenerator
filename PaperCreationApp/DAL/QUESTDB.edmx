@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_PAPERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DB_CHAPTER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_LONGQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="Marks" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DB_MCQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OptionA" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="OptionB" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="OptionC" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="OptionD" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Marks" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_SHORTQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Marks" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_SUBJECTs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_DB_CHAPTER_DB_SUBJECTs">
+          <End Role="DB_SUBJECTs" Type="Self.DB_SUBJECTs" Multiplicity="1" />
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_SUBJECTs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_CHAPTER">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_LONGQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_LONGQ" Type="Self.DB_LONGQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_LONGQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_MCQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_MCQ" Type="Self.DB_MCQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_MCQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_SHORTQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_SHORTQ" Type="Self.DB_SHORTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_SHORTQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PAPERModelStoreContainer">
+          <EntitySet Name="DB_CHAPTER" EntityType="Self.DB_CHAPTER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_LONGQ" EntityType="Self.DB_LONGQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_MCQ" EntityType="Self.DB_MCQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_SHORTQ" EntityType="Self.DB_SHORTQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_SUBJECTs" EntityType="Self.DB_SUBJECTs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DB_CHAPTER_DB_SUBJECTs" Association="Self.FK_DB_CHAPTER_DB_SUBJECTs">
+            <End Role="DB_SUBJECTs" EntitySet="DB_SUBJECTs" />
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_LONGQ_DB_CHAPTER" Association="Self.FK_DB_LONGQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_LONGQ" EntitySet="DB_LONGQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_MCQ_DB_CHAPTER" Association="Self.FK_DB_MCQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_MCQ" EntitySet="DB_MCQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_SHORTQ_DB_CHAPTER" Association="Self.FK_DB_SHORTQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_SHORTQ" EntitySet="DB_SHORTQ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_PAPERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DB_CHAPTER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DB_SUBJECTs" Relationship="Self.FK_DB_CHAPTER_DB_SUBJECTs" FromRole="DB_CHAPTER" ToRole="DB_SUBJECTs" />
+          <NavigationProperty Name="DB_LONGQ" Relationship="Self.FK_DB_LONGQ_DB_CHAPTER" FromRole="DB_CHAPTER" ToRole="DB_LONGQ" />
+          <NavigationProperty Name="DB_MCQ" Relationship="Self.FK_DB_MCQ_DB_CHAPTER" FromRole="DB_CHAPTER" ToRole="DB_MCQ" />
+          <NavigationProperty Name="DB_SHORTQ" Relationship="Self.FK_DB_SHORTQ_DB_CHAPTER" FromRole="DB_CHAPTER" ToRole="DB_SHORTQ" />
+        </EntityType>
+        <EntityType Name="DB_LONGQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="Marks" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DB_CHAPTER" Relationship="Self.FK_DB_LONGQ_DB_CHAPTER" FromRole="DB_LONGQ" ToRole="DB_CHAPTER" />
+        </EntityType>
+        <EntityType Name="DB_MCQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptionA" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptionB" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptionC" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptionD" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marks" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DB_CHAPTER" Relationship="Self.FK_DB_MCQ_DB_CHAPTER" FromRole="DB_MCQ" ToRole="DB_CHAPTER" />
+        </EntityType>
+        <EntityType Name="DB_SHORTQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marks" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DB_CHAPTER" Relationship="Self.FK_DB_SHORTQ_DB_CHAPTER" FromRole="DB_SHORTQ" ToRole="DB_CHAPTER" />
+        </EntityType>
+        <EntityType Name="DB_SUBJECTs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DB_CHAPTER" Relationship="Self.FK_DB_CHAPTER_DB_SUBJECTs" FromRole="DB_SUBJECTs" ToRole="DB_CHAPTER" />
+        </EntityType>
+        <Association Name="FK_DB_CHAPTER_DB_SUBJECTs">
+          <End Role="DB_SUBJECTs" Type="Self.DB_SUBJECTs" Multiplicity="1" />
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_SUBJECTs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_CHAPTER">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_LONGQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_LONGQ" Type="Self.DB_LONGQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_LONGQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_MCQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_MCQ" Type="Self.DB_MCQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_MCQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_SHORTQ_DB_CHAPTER">
+          <End Role="DB_CHAPTER" Type="Self.DB_CHAPTER" Multiplicity="1" />
+          <End Role="DB_SHORTQ" Type="Self.DB_SHORTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_CHAPTER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DB_SHORTQ">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PAPEREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DB_CHAPTER" EntityType="Self.DB_CHAPTER" />
+          <EntitySet Name="DB_LONGQ" EntityType="Self.DB_LONGQ" />
+          <EntitySet Name="DB_MCQ" EntityType="Self.DB_MCQ" />
+          <EntitySet Name="DB_SHORTQ" EntityType="Self.DB_SHORTQ" />
+          <EntitySet Name="DB_SUBJECTs" EntityType="Self.DB_SUBJECTs" />
+          <AssociationSet Name="FK_DB_CHAPTER_DB_SUBJECTs" Association="Self.FK_DB_CHAPTER_DB_SUBJECTs">
+            <End Role="DB_SUBJECTs" EntitySet="DB_SUBJECTs" />
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_LONGQ_DB_CHAPTER" Association="Self.FK_DB_LONGQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_LONGQ" EntitySet="DB_LONGQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_MCQ_DB_CHAPTER" Association="Self.FK_DB_MCQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_MCQ" EntitySet="DB_MCQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_SHORTQ_DB_CHAPTER" Association="Self.FK_DB_SHORTQ_DB_CHAPTER">
+            <End Role="DB_CHAPTER" EntitySet="DB_CHAPTER" />
+            <End Role="DB_SHORTQ" EntitySet="DB_SHORTQ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_PAPERModelStoreContainer" CdmEntityContainer="DB_PAPEREntities">
+          <EntitySetMapping Name="DB_CHAPTER">
+            <EntityTypeMapping TypeName="DB_PAPERModel.DB_CHAPTER">
+              <MappingFragment StoreEntitySet="DB_CHAPTER">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_LONGQ">
+            <EntityTypeMapping TypeName="DB_PAPERModel.DB_LONGQ">
+              <MappingFragment StoreEntitySet="DB_LONGQ">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_MCQ">
+            <EntityTypeMapping TypeName="DB_PAPERModel.DB_MCQ">
+              <MappingFragment StoreEntitySet="DB_MCQ">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_SHORTQ">
+            <EntityTypeMapping TypeName="DB_PAPERModel.DB_SHORTQ">
+              <MappingFragment StoreEntitySet="DB_SHORTQ">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_SUBJECTs">
+            <EntityTypeMapping TypeName="DB_PAPERModel.DB_SUBJECTs">
+              <MappingFragment StoreEntitySet="DB_SUBJECTs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97d7c96971374c11a46316a7517e59bf" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_PAPERModel.DB_CHAPTER" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PAPERModel.DB_LONGQ" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PAPERModel.DB_MCQ" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PAPERModel.DB_SHORTQ" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PAPERModel.DB_SUBJECTs" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_PAPERModel.FK_DB_CHAPTER_DB_SUBJECTs" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PAPERModel.FK_DB_LONGQ_DB_CHAPTER" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PAPERModel.FK_DB_MCQ_DB_CHAPTER" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PAPERModel.FK_DB_SHORTQ_DB_CHAPTER" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
